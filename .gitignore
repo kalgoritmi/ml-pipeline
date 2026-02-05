@@ -43,6 +43,7 @@ poetry.lock
 
 # Data files (download separately)
 data/*.csv
+tests/data/
 
 # Operation checkpoints
 checkpoints/**

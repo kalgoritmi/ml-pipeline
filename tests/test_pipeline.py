@@ -9,13 +9,14 @@ from src.pipeline import run_pipeline
 
 ACCURACY_THRESHOLD = 0.5
 CONFIG_PATH = Path(__file__).parent / "test_integration.yaml"
+PROJECT_ROOT = Path(__file__).parent.parent
 
 
 class TestPipelineIntegration(unittest.TestCase):
     def test_pipeline_accuracy_above_threshold(self):
         """Test that the pipeline achieves accuracy above threshold."""
         config = load_config(CONFIG_PATH)
-        result = run_pipeline(config, CONFIG_PATH.parent)
+        result = run_pipeline(config, PROJECT_ROOT)
 
         self.assertGreaterEqual(result["sklearn_accuracy"], ACCURACY_THRESHOLD)
 
@@ -28,7 +29,7 @@ class TestPipelineIntegration(unittest.TestCase):
             if "checkpoint_dir" in config.__dict__:
                 del config.__dict__["checkpoint_dir"]
 
-            run_pipeline(config, CONFIG_PATH.parent)
+            run_pipeline(config, PROJECT_ROOT)
 
             checkpoint_files = list(Path(tmpdir).rglob("*.csv"))
             self.assertEqual(len(checkpoint_files), len(config.operations))
