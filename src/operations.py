@@ -27,7 +27,7 @@ def compute_target(df: pd.DataFrame, op: OperationConfig) -> pd.DataFrame:
 
 
 def shuffle(df: pd.DataFrame, op: OperationConfig) -> pd.DataFrame:
-    return df.sample(frac=1, random_state=op.random_state).reset_index(drop=True)
+    return df.sample(frac=1, random_state=op.random_state)
 
 
 def limit_rows(df: pd.DataFrame, op: OperationConfig) -> pd.DataFrame:
