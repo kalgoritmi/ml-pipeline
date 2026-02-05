@@ -1,0 +1,40 @@
+version: '1.0'
+
+dataset_file: 'data/CLEAN_House1.csv'
+dataset_url: 'https://zenodo.org/records/5063428/files/CLEAN_House1.csv?download=1'
+
+operations:
+  - type: 'LimitRows'
+    n_rows: 10_000
+
+  - type: 'IndexOperation'
+    column: 'Time'
+
+  - type: 'RemoveColumns'
+    columns: ['Unix', 'Aggregate', 'Issues']
+
+  - type: 'ComputeTarget'
+    columns:
+      - name: 'Appliance1'
+        weight: 5.0
+      - name: 'Appliance2'
+        weight: -7.0
+      - name: 'Appliance3'
+        weight: 2.7
+      - name: 'Appliance4'
+        weight: -1.0
+      - name: 'Appliance5'
+        weight: 6.7
+    target_column: 'Custom Target'
+    threshold: 0
+
+  - type: 'Shuffle'
+    random_state: 10
+
+target: 'Custom Target'
+
+splitting:
+  train: 0.8
+  validation: 0.2
+
+checkpoint_path: 'checkpoints'

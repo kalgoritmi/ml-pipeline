@@ -1,0 +1,25 @@
+version: '1.0'
+
+dataset_file: 'data/CLEAN_House1.csv'
+dataset_url: 'https://zenodo.org/records/5063428/files/CLEAN_House1.csv?download=1'
+
+operations:
+  - type: 'LimitRows'
+    n_rows: 100
+
+  - type: 'IndexOperation'
+    column: 'Time'
+
+  - type: 'RemoveColumns'
+    columns: ['Unix', 'Aggregate']
+
+  - type: 'Shuffle'
+    random_state: 10
+
+target: 'Issues'
+
+splitting:
+  train: 0.8
+  validation: 0.2
+
+checkpoint_path: 'checkpoints'
